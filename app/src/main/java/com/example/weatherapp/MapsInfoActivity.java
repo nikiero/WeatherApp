@@ -15,14 +15,10 @@ import org.json.JSONObject;
 public class MapsInfoActivity extends AppCompatActivity {
     public static String DATA_KEY = "weatherData";
 
-    private Button backButton;
-    private TextView zonename;
-    private TextView zonedescription;
-
 
     private void displayInfo(String response) throws JSONException {
-        zonename = (TextView)findViewById(R.id.zonename);
-        zonedescription = (TextView)findViewById(R.id.zonedescription);
+        TextView zonename = (TextView) findViewById(R.id.zonename);
+        TextView zonedescription = (TextView) findViewById(R.id.zonedescription);
 
 
         JSONObject root = new JSONObject(response);
@@ -37,16 +33,19 @@ public class MapsInfoActivity extends AppCompatActivity {
 
         String zoneName = root.getString("name");
         JSONObject zoneCountryObject = root.getJSONObject("sys");
-        String zoneCountry = zoneCountryObject.getString("country");
+        String zoneCountry = zoneCountryObject.optString("country", "UNKNOWN");
         JSONObject windObject = root.getJSONObject("wind");
         String windSpeed = windObject.getString("speed");
 
 
 
-        zonename.setText("Zone name is " + zoneCountry + ", " + zoneName);
-        zonedescription.setText("Temp is " + temp + "°C" + "\n"
-                + "Weather: "+ weather + ", " + weatherDescription + "\n"
-                + "Speed wind: " + windSpeed);
+        zonename.setText(String.format("Zone name is %s, %s", zoneCountry, zoneName));
+        zonedescription.setText(String.format(
+                "Temp is %s°C\nWeather: %s, %s\nSpeed wind: %s",
+                temp,
+                weather,
+                weatherDescription,
+                windSpeed));
 
     }
 
@@ -64,12 +63,7 @@ public class MapsInfoActivity extends AppCompatActivity {
             }
         }
 
-        backButton = findViewById(R.id.back);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        Button backButton = findViewById(R.id.back);
+        backButton.setOnClickListener(view -> finish());
     }
 }

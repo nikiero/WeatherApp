@@ -16,11 +16,11 @@ public class OpenWeatherService {
         this.queue = Volley.newRequestQueue(context);
     }
 
-    private RequestQueue queue;
-    private String API_KEY = "a18a2770f9d064c5e5d485e6a8a82c86";
-    private String url = "https://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&appid=%s&lang=en&units=metric";
+    private final RequestQueue queue;
 
     void collectWeather(LatLng latLng, Response.Listener<java.lang.String> listener, Response.ErrorListener errorListener) {
+        String API_KEY = "a18a2770f9d064c5e5d485e6a8a82c86";
+        String url = "https://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&appid=%s&lang=en&units=metric";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, String.format(url, latLng.latitude, latLng.longitude, API_KEY), listener, errorListener);
         queue.add(stringRequest);
     }

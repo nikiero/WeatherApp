@@ -30,60 +30,35 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
 
-        binding.login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email=binding.emailAddress.getText().toString().trim();
-                String password=binding.password.getText().toString().trim();
-                progressDialog.show();
-                firebaseAuth.signInWithEmailAndPassword(email,password)
-                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-                                progressDialog.cancel();
-                                Toast.makeText(LoginActivity.this, "Login Succesfull", Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(LoginActivity.this, MapsActivity.class);
-                                startActivity(i);
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            }
+        binding.login.setOnClickListener(view -> {
+            String email=binding.emailAddress.getText().toString().trim();
+            String password=binding.password.getText().toString().trim();
+            progressDialog.show();
+            firebaseAuth.signInWithEmailAndPassword(email,password)
+                    .addOnSuccessListener(authResult -> {
+                        progressDialog.cancel();
+                        Toast.makeText(LoginActivity.this, "Login Succesfull", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(LoginActivity.this, MapsActivity.class);
+                        startActivity(i);
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
         });
 
-        binding.resetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email=binding.emailAddress.getText().toString();
-                progressDialog.setTitle("Sending Mail");
-                progressDialog.show();
-                firebaseAuth.sendPasswordResetEmail(email)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                progressDialog.cancel();
-                                Toast.makeText(LoginActivity.this, "Email Sent", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressDialog.cancel();
-                                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            }
+        binding.resetPassword.setOnClickListener(view -> {
+            String email=binding.emailAddress.getText().toString();
+            progressDialog.setTitle("Sending Mail");
+            progressDialog.show();
+            firebaseAuth.sendPasswordResetEmail(email)
+                    .addOnSuccessListener(unused -> {
+                        progressDialog.cancel();
+                        Toast.makeText(LoginActivity.this, "Email Sent", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        progressDialog.cancel();
+                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
         });
 
-        binding.goToSignUpActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
-            }
-        });
+        binding.goToSignUpActivity.setOnClickListener(view -> startActivity(new Intent(LoginActivity.this,MainActivity.class)));
     }
 }

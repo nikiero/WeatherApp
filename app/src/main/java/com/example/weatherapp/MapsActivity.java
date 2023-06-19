@@ -30,7 +30,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -54,18 +53,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(latLng));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
-            openWeatherService.collectWeather(latLng, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Intent i = new Intent(MapsActivity.this, MapsInfoActivity.class);
-                    i.putExtra(MapsInfoActivity.DATA_KEY, response);
-                    startActivity(i);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    // Handle error
-                }
+            openWeatherService.collectWeather(latLng, response -> {
+                Intent i = new Intent(MapsActivity.this, MapsInfoActivity.class);
+                i.putExtra(MapsInfoActivity.DATA_KEY, response);
+                startActivity(i);
+            }, error -> {
             });
         });
 
