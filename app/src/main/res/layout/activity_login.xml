@@ -4,53 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
+    android:background="#2E2E2E"
+    android:backgroundTint="#2E2E2E"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".LoginActivity">
 
 
     <EditText
+        android:id="@+id/editTextTextPersonName2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="                                Login"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
+
+    <EditText
         android:id="@+id/emailAddress"
-        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:background="@drawable/editext_background"
         android:hint="Email Address"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
     <EditText
         android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:padding="10dp"
         android:background="@drawable/editext_background"
         android:hint="Password"
         android:inputType="textPassword"
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
+
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="232dp" />
 
     <Button
         android:id="@+id/login"
-        android:layout_marginTop="10dp"
-        android:text="Login"
+        android:layout_width="373dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#062EC1"
+        android:text="Login" />
 
     <TextView
         android:id="@+id/resetPassword"
-        android:textColor="@color/teal_700"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:text="Reset Password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    
+        android:textColor="@color/teal_700" />
+
     <TextView
         android:id="@+id/goToSignUpActivity"
-        android:textColor="@color/teal_700"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:text="Signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textColor="@color/teal_700" />
 
 </LinearLayout>
